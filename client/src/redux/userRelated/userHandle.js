@@ -13,13 +13,13 @@ import {
     getError,
 } from './userSlice';
 
-const REACT_APP_BASE_URL = "http://localhost:5000";
+const REACT_APP_BASE_URL = "http://localhost:3000";
 
 export const loginUser = (fields, role) => async (dispatch) => {
     dispatch(authRequest());
 
     try {
-        const result = await axios.post(`REACT_APP_BASE_URL}/${role}Login`, fields, {
+        const result = await axios.post(`${REACT_APP_BASE_URL}/${role}Login`, fields, {
             headers: { 'Content-Type': 'application/json' },
         });
         if (result.data.role) {
