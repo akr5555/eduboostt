@@ -53,12 +53,8 @@ const About = () => {
                 </a>
               </li>
             </ul>
-            <Link className="lgb" to="/profile">
-              {currentUser ? (
-              <img className='l-img' src={currentUser.profilePicture} alt='profile' />
-            ):(
-              <button className="login-btn">Login</button>
-            )} 
+            <Link className="lgb" to="/AdminRegister">
+                <button className="login-btn">Register</button>
             </Link>
             <img id="menu-btn" src={menuBtn} alt="" />
           </div>
