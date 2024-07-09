@@ -6,7 +6,7 @@ const dotenv = require("dotenv")
 const app = express()
 const Routes = require("./routes/route.js")
 
-const PORT = "http://localhost:5000";
+const PORT = "http://localhost:3000";
 
 dotenv.config();
 
