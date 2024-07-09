@@ -48,7 +48,7 @@ const About = () => {
                 <a href="#contact">Contact</a>
               </li>
               <li>
-                <a href="https://surveyheart.com/form/6686c8d524bae747d6146720" target="_blank">
+                <a href="https://surveyheart.com/form/6686c8d524bae747d6146720" rel="noreferrer">
                   Feedback
                 </a>
               </li>
