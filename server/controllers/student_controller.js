@@ -89,16 +89,16 @@ const getStudentDetail = async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-}
+};
 
 const deleteStudent = async (req, res) => {
     try {
         const result = await Student.findByIdAndDelete(req.params.id)
         res.send(result)
     } catch (error) {
-        res.status(500).json(err);
+        res.status(500).json(error);
     }
-}
+};
 
 const deleteStudents = async (req, res) => {
     try {
@@ -109,9 +109,9 @@ const deleteStudents = async (req, res) => {
             res.send(result)
         }
     } catch (error) {
-        res.status(500).json(err);
+        res.status(500).json(error);
     }
-}
+};
 
 const deleteStudentsByClass = async (req, res) => {
     try {
@@ -122,26 +122,26 @@ const deleteStudentsByClass = async (req, res) => {
             res.send(result)
         }
     } catch (error) {
-        res.status(500).json(err);
+        res.status(500).json(error);
     }
-}
+};
 
 const updateStudent = async (req, res) => {
     try {
         if (req.body.password) {
-            const salt = await bcrypt.genSalt(10)
-            res.body.password = await bcrypt.hash(res.body.password, salt)
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt);
         }
         let result = await Student.findByIdAndUpdate(req.params.id,
             { $set: req.body },
-            { new: true })
+            { new: true });
 
         result.password = undefined;
-        res.send(result)
+        res.send(result);
     } catch (error) {
         res.status(500).json(error);
     }
-}
+};
 
 const updateExamResult = async (req, res) => {
     const { subName, marksObtained } = req.body;
@@ -225,7 +225,7 @@ const clearAllStudentsAttendanceBySubject = async (req, res) => {
 };
 
 const clearAllStudentsAttendance = async (req, res) => {
-    const schoolId = req.params.id
+    const schoolId = req.params.id;
 
     try {
         const result = await Student.updateMany(
@@ -241,7 +241,7 @@ const clearAllStudentsAttendance = async (req, res) => {
 
 const removeStudentAttendanceBySubject = async (req, res) => {
     const studentId = req.params.id;
-    const subName = req.body.subId
+    const subName = req.body.subId;
 
     try {
         const result = await Student.updateOne(
@@ -254,7 +254,6 @@ const removeStudentAttendanceBySubject = async (req, res) => {
         res.status(500).json(error);
     }
 };
-
 
 const removeStudentAttendance = async (req, res) => {
     const studentId = req.params.id;
@@ -270,7 +269,6 @@ const removeStudentAttendance = async (req, res) => {
         res.status(500).json(error);
     }
 };
-
 
 module.exports = {
     studentRegister,
