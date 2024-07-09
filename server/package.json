@@ -24,8 +24,6 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5",
-    "eslint": "^9.6.0",
-  },
-  "proxy": "http://localhost:3000"
+    "dotenv": "^16.4.5"
+  }
 }
