@@ -16,12 +16,6 @@ dotenv.config();
 const app = express();
 
 
-app.use(express.static(path.join(__dirname, '/client/build')));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
-
 
 app.use(express.json());
 app.use (cors());
@@ -32,8 +26,13 @@ mongoose
         useUnifiedTopology: true
     })
     .then(console.log("Connected to MongoDB"))
-    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err))
+    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
 
+app.use(express.static(path.join(__dirname, '/client/build')));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
 
 app.use('/', Routes);
 
