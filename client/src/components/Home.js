@@ -253,13 +253,13 @@ const Home = () => {
                     )}
                     {!showServices ? (
                       <p className="read-more">
-                        <a href="#" onClick={toggleServices}>
+                        <a href="/" onClick={toggleServices}>
                           Read More
                         </a>
                       </p>
                     ) : (
                       <p className="show-less">
-                        <a href="#" onClick={toggleServices}>
+                        <a href="/" onClick={toggleServices}>
                           Show Less
                         </a>
                       </p>
