@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import Routes from "./routes/route.js"
  import path from 'path';
 
-const PORT = process.env.PORT || 3000
+// const PORT = process.env.PORT || 3000
 
 dotenv.config();
 
@@ -36,12 +36,12 @@ app.get("*", (req, res) => {
 
 app.use('/', Routes);
 
-/* app.listen(3000, () => {
+app.listen(3000, () => {
   console.log("Server listening on port 3000");
 });
- */
 
 
-app.listen(PORT, () => {
+
+/* app.listen(PORT, () => {
     console.log(`Server started at port no. ${PORT}`)
-})
+}) */
