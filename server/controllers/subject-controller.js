@@ -1,6 +1,6 @@
-const Subject = require('../models/subjectSchema.js');
-const Teacher = require('../models/teacherSchema.js');
-const Student = require('../models/studentSchema.js');
+import Subject from '../models/subjectSchema.js';
+import Teacher from '../models/teacherSchema.js';
+import Student from '../models/studentSchema.js';
 
 const subjectCreate = async (req, res) => {
     try {
@@ -35,7 +35,7 @@ const subjectCreate = async (req, res) => {
 const allSubjects = async (req, res) => {
     try {
         let subjects = await Subject.find({ school: req.params.id })
-            .populate("sclassName", "sclassName")
+            .populate("sclassName", "sclassName");
         if (subjects.length > 0) {
             res.send(subjects)
         } else {
@@ -48,7 +48,7 @@ const allSubjects = async (req, res) => {
 
 const classSubjects = async (req, res) => {
     try {
-        let subjects = await Subject.find({ sclassName: req.params.id })
+        let subjects = await Subject.find({ sclassName: req.params.id });
         if (subjects.length > 0) {
             res.send(subjects)
         } else {
@@ -74,10 +74,10 @@ const freeSubjectList = async (req, res) => {
 
 const getSubjectDetail = async (req, res) => {
     try {
-        let subject = await Subject.findById(req.params.id);
+        let subject = await Subject.findById(req.params.id)
+            .populate("sclassName", "sclassName")
+            .populate("teacher", "name");
         if (subject) {
-            subject = await subject.populate("sclassName", "sclassName")
-            subject = await subject.populate("teacher", "name")
             res.send(subject);
         }
         else {
@@ -160,5 +160,4 @@ const deleteSubjectsByClass = async (req, res) => {
     }
 };
 
-
-module.exports = { subjectCreate, freeSubjectList, classSubjects, getSubjectDetail, deleteSubjectsByClass, deleteSubjects, deleteSubject, allSubjects };
+export { subjectCreate, freeSubjectList, classSubjects, getSubjectDetail, deleteSubjectsByClass, deleteSubjects, deleteSubject, allSubjects };
