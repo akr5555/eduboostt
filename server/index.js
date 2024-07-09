@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import Routes from "./routes/route.js"
 // import path from 'path';
 
- const PORT = 3000;
+ const PORT = process.env.PORT || 3000;
 
 dotenv.config();
 
