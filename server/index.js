@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 // const bodyParser = require("body-parser")
 import Routes from "./routes/route.js"
- import path from 'path';
+// import path from 'path';
 
  const PORT = 3000;
 
@@ -12,7 +12,7 @@ dotenv.config();
 
 // app.use(bodyParser.json({ limit: '10mb', extended: true }))
 // app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
- const __dirname = path.resolve();
+// const __dirname = path.resolve();
 const app = express();
 
 
@@ -33,11 +33,11 @@ mongoose
     });
 
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+/* app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+}); */
 
 app.use('/', Routes);
 
