@@ -6,7 +6,7 @@ const dotenv = require("dotenv")
 const app = express()
 const Routes = require("./routes/route.js")
 
-const PORT = "http://localhost:3000";
+// const PORT = "http://localhost:3000";
 
 dotenv.config();
 
@@ -15,6 +15,9 @@ dotenv.config();
 
 app.use(express.json({ limit: '10mb' }))
 app.use(cors())
+app.listen(3000, () => {
+  console.log("Server listening on port 3000");
+});
 
 mongoose
     .connect(process.env.MONGO, {
@@ -26,6 +29,7 @@ mongoose
 
 app.use('/', Routes);
 
-app.listen(PORT, () => {
+
+/* app.listen(PORT, () => {
     console.log(`Server started at port no. ${PORT}`)
-})
+}) */
