@@ -1,10 +1,10 @@
-const express = require("express")
-const cors = require("cors")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
+import express from 'express';
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 // const bodyParser = require("body-parser")
 const app = express()
-const Routes = require("./routes/route.js")
+import Routes from "./routes/route.js"
 import path from 'path';
 
 // const PORT = "http://localhost:3000";
