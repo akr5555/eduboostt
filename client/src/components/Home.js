@@ -90,7 +90,7 @@ const Home = () => {
               <li>
                 <a
                   href="https://surveyheart.com/form/6686c8d524bae747d6146720"
-                  target="_blank"
+                  rel="noreferrer"
                 >
                   Feedback
                 </a>
