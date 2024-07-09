@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -13,7 +13,7 @@ const App = () => {
   const { currentRole } = useSelector((state) => state.user);
 
   return (
-    <Router>
+    <BrowserRouter>
       {currentRole === null &&
       <Routes>
         <Route path="/" element={<Home />} />
@@ -41,7 +41,7 @@ const App = () => {
           <TeacherDashboard />
         </>
       }
-    </Router>
+    </BrowserRouter>
   );
 };
 
