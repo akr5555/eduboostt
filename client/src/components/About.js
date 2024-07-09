@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./style.css";
+import "./home.css";
 import $ from "jquery";
 import logo from "../components/images/logo2.JPEG";
 import menuClose from "../components/images/close.PNG";
