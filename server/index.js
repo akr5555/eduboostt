@@ -25,8 +25,13 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then(console.log("Connected to MongoDB"))
-    .catch((err) => console.log("NOT CONNECTED TO NETWORK", err));
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+        console.log("NOT CONNECTED TO NETWORK", err);
+    });
+
 
 app.use(express.static(path.join(__dirname, '/client/build')));
 
