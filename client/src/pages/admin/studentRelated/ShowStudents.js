@@ -60,14 +60,12 @@ const ShowStudents = () => {
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ]
 
-    const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
-        return {
-            name: student.name,
-            rollNum: student.rollNum,
-            sclassName: student.sclassName.sclassName,
-            id: student._id,
-        };
-    })
+    const studentRows = Array.isArray(studentsList) && studentsList.length > 0 ? studentsList.map((student) => ({
+    name: student.name,
+    rollNum: student.rollNum,
+    sclassName: student.sclassName.sclassName,
+    id: student._id,
+})) : [];
 
     const StudentButtonHaver = ({ row }) => {
         const options = ['Take Attendance', 'Provide Marks'];
