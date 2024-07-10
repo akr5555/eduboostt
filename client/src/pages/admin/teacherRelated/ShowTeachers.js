@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
 import {
     Paper, Table, TableBody, TableContainer,
     TableHead, TablePagination, Button, Box, IconButton,
 } from '@mui/material';
-// import { deleteUser } from '../../../redux/userRelated/userHandle';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { StyledTableCell, StyledTableRow } from '../../../components/styles';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
@@ -30,9 +29,25 @@ const ShowTeachers = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
 
+    const deleteHandler = (deleteID, address) => {
+        setMessage("Sorry, the delete function has been disabled for now.");
+        setShowPopup(true);
+        // Optionally, you might dispatch delete action here
+        // dispatch(deleteUser(deleteID, address)).then(() => {
+        //     dispatch(getAllTeachers(currentUser._id));
+        // });
+    };
+
     if (loading) {
         return <div>Loading...</div>;
-    } else if (response) {
+    }
+
+    if (error) {
+        console.log(error);
+        return <div>Error fetching data. Please try again later.</div>;
+    }
+
+    if (response) {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
                 <GreenButton variant="contained" onClick={() => navigate("/Admin/teachers/chooseclass")}>
@@ -40,38 +55,22 @@ const ShowTeachers = () => {
                 </GreenButton>
             </Box>
         );
-    } else if (error) {
-        console.log(error);
     }
 
-    const deleteHandler = (deleteID, address) => {
-        console.log(deleteID);
-        console.log(address);
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
-
-        // dispatch(deleteUser(deleteID, address)).then(() => {
-        //     dispatch(getAllTeachers(currentUser._id));
-        // });
-    };
+    // Ensure teachersList is initialized and not null/undefined
+    const rows = teachersList?.map((teacher) => ({
+        name: teacher.name,
+        teachSubject: teacher.teachSubject?.subName || null,
+        teachSclass: teacher.teachSclass?.sclassName || null,
+        teachSclassID: teacher.teachSclass?._id || null,
+        id: teacher._id,
+    })) || [];
 
     const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },
         { id: 'teachSubject', label: 'Subject', minWidth: 100 },
         { id: 'teachSclass', label: 'Class', minWidth: 170 },
     ];
-
-    // Assuming teachersList is properly initialized as an array of teacher objects
-const rows = teachersList.map((teacher) => ({
-    name: teacher.name,
-    teachSubject: teacher.teachSubject?.subName || null,
-    teachSclass: teacher.teachSclass?.sclassName || null,
-    teachSclassID: teacher.teachSclass?._id || null,
-    id: teacher._id,
-}));
-
-console.log(rows); // Output the transformed data for verification
-
 
     const actions = [
         {
@@ -93,59 +92,49 @@ console.log(rows); // Output the transformed data for verification
                             {columns.map((column) => (
                                 <StyledTableCell
                                     key={column.id}
-                                    align={column.align}
+                                    align="left" // Adjusted to 'left' alignment
                                     style={{ minWidth: column.minWidth }}
                                 >
                                     {column.label}
                                 </StyledTableCell>
                             ))}
-                            <StyledTableCell align="center">
-                                Actions
-                            </StyledTableCell>
+                            <StyledTableCell align="center">Actions</StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
-                                return (
-                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            if (column.id === 'teachSubject') {
-                                                return (
-                                                    <StyledTableCell key={column.id} align={column.align}>
-                                                        {value ? (
-                                                            value
-                                                        ) : (
-                                                            <Button variant="contained"
-                                                                onClick={() => {
-                                                                    navigate(`/Admin/teachers/choosesubject/${row.teachSclassID}/${row.id}`)
-                                                                }}>
-                                                                Add Subject
-                                                            </Button>
-                                                        )}
-                                                    </StyledTableCell>
-                                                );
-                                            }
-                                            return (
-                                                <StyledTableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
-                                                </StyledTableCell>
-                                            );
-                                        })}
-                                        <StyledTableCell align="center">
-                                            <IconButton onClick={() => deleteHandler(row.id, "Teacher")}>
-                                                <PersonRemoveIcon color="error" />
-                                            </IconButton>
-                                            <BlueButton variant="contained"
-                                                onClick={() => navigate("/Admin/teachers/teacher/" + row.id)}>
-                                                View
-                                            </BlueButton>
+                            .map((row) => (
+                                <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                                    {columns.map((column) => (
+                                        <StyledTableCell key={column.id} align="left">
+                                            {column.id === 'teachSubject' ? (
+                                                row.teachSubject ? row.teachSubject : (
+                                                    <Button
+                                                        variant="contained"
+                                                        onClick={() => navigate(`/Admin/teachers/choosesubject/${row.teachSclassID}/${row.id}`)}
+                                                    >
+                                                        Add Subject
+                                                    </Button>
+                                                )
+                                            ) : (
+                                                row[column.id]
+                                            )}
                                         </StyledTableCell>
-                                    </StyledTableRow>
-                                );
-                            })}
+                                    ))}
+                                    <StyledTableCell align="center">
+                                        <IconButton onClick={() => deleteHandler(row.id, "Teacher")}>
+                                            <PersonRemoveIcon color="error" />
+                                        </IconButton>
+                                        <BlueButton
+                                            variant="contained"
+                                            onClick={() => navigate("/Admin/teachers/teacher/" + row.id)}
+                                        >
+                                            View
+                                        </BlueButton>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -157,15 +146,15 @@ console.log(rows); // Output the transformed data for verification
                 page={page}
                 onPageChange={(event, newPage) => setPage(newPage)}
                 onRowsPerPageChange={(event) => {
-                    setRowsPerPage(parseInt(event.target.value, 5));
+                    setRowsPerPage(parseInt(event.target.value, 10));
                     setPage(0);
                 }}
             />
 
             <SpeedDialTemplate actions={actions} />
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
-        </Paper >
+        </Paper>
     );
 };
 
-export default ShowTeachers
+export default ShowTeachers;
