@@ -61,15 +61,17 @@ const ShowTeachers = () => {
         { id: 'teachSclass', label: 'Class', minWidth: 170 },
     ];
 
-    const rows = teachersList.map((teacher) => {
-        return {
-            name: teacher.name,
-            teachSubject: teacher.teachSubject?.subName || null,
-            teachSclass: teacher.teachSclass.sclassName,
-            teachSclassID: teacher.teachSclass._id,
-            id: teacher._id,
-        };
-    });
+    // Assuming teachersList is properly initialized as an array of teacher objects
+const rows = teachersList.map((teacher) => ({
+    name: teacher.name,
+    teachSubject: teacher.teachSubject?.subName || null,
+    teachSclass: teacher.teachSclass?.sclassName || null,
+    teachSclassID: teacher.teachSclass?._id || null,
+    id: teacher._id,
+}));
+
+console.log(rows); // Output the transformed data for verification
+
 
     const actions = [
         {
