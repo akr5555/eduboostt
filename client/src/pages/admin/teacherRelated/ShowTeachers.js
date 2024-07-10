@@ -59,13 +59,16 @@ const ShowTeachers = () => {
     }
 
     // Ensure teachersList is initialized and not null/undefined
-    const rows = teachersList?.map((teacher) => ({
+    const rows = Array.isArray(teachersList)
+    ? teachersList.map((teacher) => ({
         name: teacher.name,
         teachSubject: teacher.teachSubject?.subName || null,
         teachSclass: teacher.teachSclass?.sclassName || null,
         teachSclassID: teacher.teachSclass?._id || null,
         id: teacher._id,
-    })) || [];
+    }))
+    : [];
+
 
     const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },
