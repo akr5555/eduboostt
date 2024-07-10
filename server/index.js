@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import Routes from "./routes/route.js"
  import path from 'path';
 
- const PORT = process.env.PORT || 3000;
+ // const PORT = process.env.PORT || 3000;
 
 dotenv.config();
 
@@ -54,12 +54,12 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.listen(PORT, () => {
+/* app.listen(PORT, () => {
     console.log(`Server started at port no. ${PORT}`)
-});
-/* app.listen(3000, () => {
-  console.log("Server listening on port 3000");
 }); */
+app.listen(3000, () => {
+  console.log("Server listening on port 3000");
+});
 
 
 app.use('/', Routes);
