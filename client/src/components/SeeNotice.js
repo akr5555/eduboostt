@@ -10,7 +10,6 @@ const SeeNotice = () => {
     const { currentUser, currentRole } = useSelector(state => state.user);
     const { noticesList, loading, error, response } = useSelector((state) => state.notice);
 
-    useEffect(() => {
     // Ensure currentUser exists and has the necessary properties
    useEffect(() => {
         if (currentRole === "Admin") {
