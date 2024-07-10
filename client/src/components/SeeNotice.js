@@ -11,14 +11,29 @@ const SeeNotice = () => {
     const { noticesList, loading, error, response } = useSelector((state) => state.notice);
 
     useEffect(() => {
+    // Ensure currentUser exists and has the necessary properties
+    if (currentUser) {
         if (currentRole === "Admin") {
-            dispatch(getAllNotices(currentUser._id, "Notice"));
+            // Ensure currentUser._id is available
+            if (currentUser._id) {
+                dispatch(getAllNotices(currentUser._id, "Notice"));
+            } else {
+                console.error("currentUser._id is undefined or null");
+            }
+        } else {
+            // Ensure currentUser.school and currentUser.school._id are available
+            if (currentUser.school && currentUser.school._id) {
+                dispatch(getAllNotices(currentUser.school._id, "Notice"));
+            } else {
+                console.error("currentUser.school._id is undefined or null");
+            }
         }
-        else {
-            dispatch(getAllNotices(currentUser.school._id, "Notice"));
-        }
-    }, [dispatch, currentRole, currentUser._id, currentUser.school._id]);
+    } else {
+        console.error("currentUser is undefined or null");
+    }
+}, [dispatch, currentRole, currentUser]);
 
+    
     if (error) {
         console.log(error);
     }
