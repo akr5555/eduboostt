@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 // const bodyParser = require("body-parser")
+import cookieParser from "cookie-parser";
 import Routes from "./routes/route.js"
  import path from 'path';
 
