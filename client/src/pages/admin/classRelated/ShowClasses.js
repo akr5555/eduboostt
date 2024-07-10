@@ -51,12 +51,11 @@ const ShowClasses = () => {
     { id: 'name', label: 'Class Name', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
-    return {
-      name: sclass.sclassName,
-      id: sclass._id,
-    };
-  })
+  const sclassRows = Array.isArray(sclassesList) && sclassesList.length > 0 ? sclassesList.map((sclass) => ({
+    name: sclass.sclassName,
+    id: sclass._id,
+})) : [];
+
 
   const SclassButtonHaver = ({ row }) => {
     const actions = [
