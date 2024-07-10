@@ -6,6 +6,7 @@ import {
     Paper, Table, TableBody, TableContainer,
     TableHead, TablePagination, Button, Box, IconButton,
 } from '@mui/material';
+import { deleteUser } from '../../../redux/userRelated/userHandle';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { StyledTableCell, StyledTableRow } from '../../../components/styles';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
@@ -33,9 +34,9 @@ const ShowTeachers = () => {
         setMessage("Sorry, the delete function has been disabled for now.");
         setShowPopup(true);
         // Optionally, you might dispatch delete action here
-        // dispatch(deleteUser(deleteID, address)).then(() => {
-        //     dispatch(getAllTeachers(currentUser._id));
-        // });
+         dispatch(deleteUser(deleteID, address)).then(() => {
+             dispatch(getAllTeachers(currentUser._id));
+         });
     };
 
     if (loading) {
