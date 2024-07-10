@@ -29,16 +29,16 @@ const SeeNotice = () => {
         { id: 'date', label: 'Date', minWidth: 170 },
     ];
 
-    const noticeRows = noticesList.map((notice) => {
-        const date = new Date(notice.date);
-        const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
-        return {
-            title: notice.title,
-            details: notice.details,
-            date: dateString,
-            id: notice._id,
-        };
-    });
+    const noticeRows = Array.isArray(noticesList) ? noticesList.map((notice) => {
+    const date = new Date(notice.date);
+    const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
+    return {
+        title: notice.title,
+        details: notice.details,
+        date: dateString,
+        id: notice._id,
+    };
+}) : [];
     return (
         <div style={{ marginTop: '50px', marginRight: '20px' }}>
             {loading ? (
